@@ -1,0 +1,181 @@
+/* src/components/sidebar/Sidebar.css */
+
+.sidebar {
+  background-color: #1e293b; /* Tasarımdaki koyu renk */
+  color: #e2e8f0; /* Açık renk metin */
+  height: 100vh; /* Ekranın tüm yüksekliğini kapla */
+  display: flex;
+  flex-direction: column; /* İçerikleri alt alta sırala */
+  padding: 1.5rem;
+  box-sizing: border-box; /* Padding'i yüksekliğe dahil et */
+  border-bottom-right-radius: 12px; /* Köşe yuvarlatma ekleyebiliriz */
+  border-top-right-radius: 16px; /* Köşe yuvarlatma ekleyebiliriz */
+  transition: padding 0.3s ease-in-out; /* Daralma animasyonu için */
+}
+
+.sidebar-logo {
+  margin-bottom: 2rem; /* Logoyla menü arasını biraz daha açalım */
+  width: 120px; /* Logo için özel ayarlar */
+  height: auto;
+  margin-top: 10px;
+  margin-left: 10px;
+  transition: opacity 0.3s ease-in-out, margin-left 0.3s ease-in-out; /* Yumuşak geçiş */
+}
+
+.logo-text {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: white;
+  transition: font-size 0.3s ease-in-out; /* Yumuşak geçiş */
+}
+
+.sidebar-nav {
+  flex-grow: 1; 
+}
+
+.nav-list {
+  list-style: none; /* Madde işaretlerini kaldır */
+  padding: 0;
+  margin: 0;
+}
+
+.nav-item {
+  margin-bottom: 0.5rem; /* Her menü elemanı arasına boşluk */
+}
+
+.nav-item a {
+  display: flex;
+  align-items: center;
+  padding: 0.9rem 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #cbd5e1; /* Pasif link rengi */
+  font-weight: 500;
+  transition: background-color 0.2s, color 0.2s, padding 0.3s ease-in-out; /* Yumuşak geçiş */
+}
+
+.nav-item a:hover {
+  background-color: #334155; /* Hafif vurgu rengi */
+  color: white; /* Hover durumunda metin rengini beyaz yapalım */
+}
+
+.nav-item a.active {
+  background-color: white; /* Tasarımdaki gibi beyaz arka plan */
+  color: #1e293b; /* Koyu metin rengi */
+  font-weight: 600;
+}
+
+.nav-item a.active .nav-icon {
+  color: #277C78; /* Aktif ikon rengi */
+}
+
+.nav-icon {
+  margin-right: 1rem;
+  display: flex;
+  align-items: center;
+  line-height: 0; 
+  color: #94a3b8; /* Varsayılan ikon rengi */
+  transition: color 0.2s, margin 0.3s ease-in-out; /* Yumuşak geçiş */
+}
+
+.nav-item a:hover .nav-icon {
+  color: white;
+}
+
+/* Aktif linkin ikon rengi */
+.nav-item a.active .nav-icon {
+  color: #277C78; 
+}
+
+.nav-text {
+  white-space: nowrap; /* Asla alt satıra kayma */
+  overflow: hidden; /* Taşarsa gizle (gerçi opacity ile gizleyeceğiz ama yine de iyi bir önlem) */
+  opacity: 1; /* Başlangıçta görünür */
+  transition: opacity 0.2s ease-in-out; /* Şeffaflık için animasyon (genişlik animasyonundan biraz daha hızlı) */
+}
+
+.sidebar-footer {
+  margin-top: 1.5rem;
+}
+
+.minimize-btn {
+  width: 100%;
+  background: none;
+  border: 1px solid #475569;
+  color: #cbd5e1;
+  padding: 0.75rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  display: flex; /* İkon ve metni yan yana getirmek için */
+  align-items: center; /* Dikeyde ortala */
+  justify-content: flex-start; /* İçeriği sola yasla */
+  gap: 0.75rem; /* İkon ile metin arası boşluk */
+  transition: padding 0.3s ease-in-out, justify-content 0.3s ease-in-out; /* Yumuşak geçiş */
+}
+
+.minimize-btn:hover {
+  background-color: #334155;
+}
+
+
+/* --- Collapsed State Styles --- */
+
+.sidebar.collapsed {
+  padding: 1.5rem 0.75rem; /* Yan padding'leri azalt */
+  /* align-items: center; <-- BU SATIRI KALDIRDIK */
+}
+
+/* Logoyu tamamen gizle */
+.sidebar.collapsed .sidebar-logo {
+  display: none;
+}
+
+.sidebar.collapsed .nav-item a {
+  /* justify-content: center; <-- BU SATIRI KALDIRDIK */
+  padding: 0.8rem; /* Padding'i küçült */
+  display: inline-flex; /* Sadece ikon kadar yer kaplasın */
+  width: auto;
+  margin-bottom: 0.75rem;
+}
+
+.sidebar.collapsed .nav-icon {
+  margin-right: 0; /* İkonun sağındaki boşluğu kaldır */
+}
+
+.sidebar.collapsed .sidebar-footer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.sidebar.collapsed .minimize-btn {
+  justify-content: center; /* Küçülünce ikonu ortala */
+  padding: 0.75rem;
+  display: inline-flex; /* Buton içeriği kadar yer kaplasın */
+  width: auto; /* Otomatik genişlik */
+  gap: 0; /* Boşluğu kaldır */
+}
+
+.sidebar.collapsed .minimize-btn span {
+  display: none; /* Metni gizle */
+}
+
+.minimize-btn span {
+  white-space: nowrap;
+  overflow: hidden;
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out;
+}
+.sidebar.collapsed .nav-text {
+  opacity: 0;
+  /* İsteğe Bağlı: Tamamen kaybolunca tıklanmasını da engelle */
+  pointer-events: none; 
+}
+
+.sidebar.collapsed .minimize-btn span {
+  opacity: 0;
+  display: none; /* display: none'ı hala tutabiliriz, opacity animasyonu bittikten sonra yer kaplamasın diye */
+}
+

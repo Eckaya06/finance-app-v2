@@ -1,0 +1,33 @@
+/* Varsayılan (beyaz) kart stili */
+.stat-card {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+}
+
+/* Ana (koyu renkli) kart için stil */
+.stat-card.primary {
+  background-color: #1e293b; /* Sidebar ile aynı koyu renk */
+  color: white;
+  border: none;
+}
+
+.stat-card-title {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.9rem;
+  color: #64748b; /* Sönük metin rengi */
+}
+
+/* Koyu kartın başlık rengi daha açık olmalı */
+.stat-card.primary .stat-card-title {
+  color: #94a3b8;
+}
+
+.stat-card-amount {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: -1px; /* Rakamların arasını hafif daralt */
+}

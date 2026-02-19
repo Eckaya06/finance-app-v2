@@ -1,0 +1,71 @@
+/* src/components/search/SearchInput.css */
+
+.search-input-container {
+  position: relative;
+  width: 300px;
+  display: flex;       /* İkonları hizalamak için flex ekledik */
+  align-items: center; /* Dikey ortalama */
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  left: 1rem; 
+  transform: translateY(-50%);
+  color: #94a3b8;
+  pointer-events: none; /* İkona tıklanmasını engeller, arkadaki inputa geçer */
+  transition: opacity 0.2s; /* Yumuşak geçiş */
+}
+
+.search-input {
+  width: 100%;
+  /* GÜNCELLEME: padding-right'ı 1rem'den 2.5rem'e çıkardık ki X butonu sığsın */
+  padding: 0.75rem 2.5rem 0.75rem 3rem; 
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  background-color: white;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.search-input::placeholder {
+  /* text-indent, metnin başlangıcını içeri doğru ittirir */
+  text-indent: 1.5rem; 
+}
+
+.search-icon.hidden {
+  opacity: 0; /* İkonu tamamen şeffaf yap */
+}
+
+/* --- YENİ EKLENEN TEMİZLEME (X) BUTONU --- */
+.search-clear-btn {
+  position: absolute;
+  right: 0.75rem; /* Sağdan mesafe */
+  top: 50%;
+  transform: translateY(-50%); /* Dikey ortalama */
+  
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  padding: 4px;
+  border-radius: 50%;
+  font-size: 1rem;
+  transition: all 0.2s;
+}
+
+.search-clear-btn:hover {
+  background-color: #f1f5f9;
+  color: #ef4444; /* Kırmızı renk */
+}

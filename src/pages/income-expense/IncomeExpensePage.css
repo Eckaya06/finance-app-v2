@@ -1,0 +1,282 @@
+/* src/pages/income-expense/IncomeExpensePage.css */
+
+/* --- Üst Kısım: Özet Kartları --- */
+.ie-summary-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.ie-summary-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+}
+
+.ie-card-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+}
+
+.income .ie-card-icon { background: #dcfce7; color: #22c55e; }
+.expense .ie-card-icon { background: #fee2e2; color: #ef4444; }
+
+.ie-card-info span { color: #64748b; font-size: 0.95rem; font-weight: 500; }
+.ie-card-info h3 { font-size: 1.75rem; margin-top: 0.25rem; font-weight: 700; }
+
+/* --- İşlem Listesi (Transaction List) --- */
+.ie-transactions-container {
+  background: white;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+}
+
+.ie-list-header {
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #f1f5f9;
+  padding-bottom: 1rem;
+}
+
+.ie-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem; 
+  border-bottom: 1px solid #f1f5f9;
+  border-radius: 12px; 
+  transition: all 0.2s ease;
+  user-select: none; 
+  -webkit-user-select: none;
+  cursor: default;
+}
+
+.ie-list-item:hover {
+  background-color: #f8fafc;
+}
+
+.ie-item-left { display: flex; align-items: center; gap: 1rem; }
+.ie-item-right { display: flex; align-items: center; gap: 1.5rem; }
+
+/* Avatar */
+.ie-item-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.ie-item-meta { display: flex; flex-direction: column; }
+.ie-item-name { font-weight: 600; color: #1e293b; font-size: 1rem; }
+.ie-item-sub { font-size: 0.85rem; color: #94a3b8; }
+
+.ie-item-amount { font-weight: 700; font-size: 1.1rem; }
+.ie-item-amount.income { color: #22c55e; }
+.ie-item-amount.expense { color: #1e293b; }
+
+/* --- Silme Butonu ve Hover Efektleri --- */
+.btn-delete-transaction {
+  background: transparent;
+  border: none;
+  color: #ef4444;
+  cursor: pointer;
+  font-size: 1.2rem;
+  padding: 8px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  opacity: 0; 
+  transform: translateX(10px);
+}
+
+.ie-list-item:hover .btn-delete-transaction {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.btn-delete-transaction:hover {
+  background-color: #fee2e2;
+}
+
+/* --- Form Elemanları (Tip Seçici) --- */
+.ie-type-selector {
+  display: flex;
+  gap: 1rem;
+  margin: 1.5rem 0;
+  background: #f1f5f9;
+  padding: 0.4rem;
+  border-radius: 12px;
+}
+
+.ie-type-selector button {
+  flex: 1; padding: 0.8rem; border: none; border-radius: 10px;
+  font-weight: 600; cursor: pointer; transition: 0.2s; background: transparent; color: #64748b;
+}
+
+.ie-type-selector button.active.expense { background: #ef4444; color: white; }
+.ie-type-selector button.active.income { background: #22c55e; color: white; }
+.full-width { width: 100%; margin-top: 1rem; }
+.btn-primary.income { background: #22c55e; }
+
+/* --- Custom Dropdown Stilleri --- */
+.custom-dropdown-container {
+  position: relative;
+  width: 100%;
+}
+
+.dropdown-trigger {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  background-color: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: #1e293b;
+  transition: all 0.2s;
+  text-align: left;
+}
+
+.dropdown-trigger.placeholder-mode {
+  color: #94a3b8;
+}
+.dropdown-trigger.placeholder-mode span {
+  font-weight: 400;
+}
+
+.dropdown-trigger:hover,
+.dropdown-trigger.open {
+  border-color: #1e293b;
+}
+
+.dropdown-arrow {
+  transition: transform 0.2s;
+  color: #64748b;
+}
+.dropdown-trigger.open .dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  z-index: 50;
+  padding: 0.5rem 0;
+  list-style: none;
+}
+
+.dropdown-item {
+  padding: 0.7rem 1rem;
+  font-size: 0.95rem;
+  color: #475569;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.dropdown-item:hover {
+  background-color: #f1f5f9;
+  color: #1e293b;
+}
+
+.dropdown-item.selected {
+  background-color: #f8fafc;
+  font-weight: 600;
+  color: #0f172a;
+  border-left: 3px solid #0f172a;
+}
+
+.read-only-input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  color: #94a3b8;
+  font-size: 0.95rem;
+  cursor: not-allowed;
+}
+
+/* --- Silme Modalı (Delete Modal) --- */
+.delete-modal-content {
+  padding: 1rem 0.5rem;
+  text-align: left;
+}
+
+.delete-header h2 {
+  font-size: 1.5rem;
+  color: #1e293b;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.delete-message {
+  color: #64748b;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.delete-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.btn-delete-confirm {
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-delete-confirm:hover { background-color: #dc2626; }
+
+.btn-delete-cancel {
+  background-color: transparent;
+  color: #64748b;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.btn-delete-cancel:hover { color: #1e293b; }
+
+/* --- Ortak Resim İkon Stili --- */
+.category-img-icon {
+  width: 80px;   
+  height: 80px;
+  object-fit: contain; 
+  display: block;
+}

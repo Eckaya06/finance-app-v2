@@ -1,0 +1,55 @@
+.delete-modal-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  font-family: inherit; /* Ana fontu kullan */
+}
+
+.delete-modal-container h2 {
+  margin: 0;
+  font-size: 1.75rem; /* 32px'e yakın */
+  font-weight: 700;
+  color: #201F24;
+}
+
+.delete-modal-container p {
+  margin: 0;
+  color: #696868;
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.delete-modal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.btn-delete-confirm {
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: 8px;
+  background: #C94736; /* Tasarımdaki kırmızı */
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-delete-confirm:hover {
+  background: #b73f30;
+}
+
+.btn-delete-cancel {
+  background: none;
+  border: none;
+  color: #696868;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+

@@ -1,0 +1,46 @@
+.budget-options-menu {
+  position: absolute;
+  top: 3.5rem; /* Butonun padding'i ve konumuyla ilgili */
+  right: 1.5rem;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+  width: 150px;
+}
+
+.options-menu-item {
+  background: none;
+  border: none;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-size: 14px;
+  font-family: inherit;
+  font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #334155;
+  transition: background-color 0.2s;
+}
+
+.options-menu-item:hover {
+  background-color: #f1f5f9;
+}
+
+.options-menu-item.delete {
+  color: #C94736; /* Tasarımdaki kırmızı renk */
+}
+
+.options-menu-item.delete:hover {
+  background-color: #fef2f2; /* Hafif kırmızı arka plan */
+}
+
+.options-menu-divider {
+  height: 1px;
+  background-color: #f1f5f9;
+  margin: 0.5rem 0;
+}

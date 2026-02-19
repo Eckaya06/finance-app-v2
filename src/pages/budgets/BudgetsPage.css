@@ -1,0 +1,159 @@
+/* src/pages/budgets/BudgetsPage.css */
+
+/* --- Sayfa Genel Stilleri (PotsPage'den) --- */
+.page-container { 
+  padding: 2.5rem; 
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.page-title {
+  margin: 0;
+  font-size: 2.25rem;
+  font-weight: 700;
+}
+
+.btn-primary {
+  background-color: #1e293b;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+  background-color: #334155;
+}
+
+/* ✅ Budgets: Pots gibi 2 sütun grid */
+.budget-cards-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* Mobilde tek sütun */
+@media (max-width: 900px){
+  .budget-cards-grid{
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- AddBudgetForm Stilleri --- */
+.add-budget-form h2 { margin-top: 0; }
+.add-budget-form p { color: #64748b; margin-bottom: 2rem; }
+.add-budget-form .form-group { display: flex; flex-direction: column; margin-bottom: 1.5rem; }
+.add-budget-form label { margin-bottom: 0.5rem; font-weight: 500; }
+.add-budget-form .form-submit-btn { width: 100%; padding: 0.9rem; margin-top: 1rem; }
+
+.input-with-prefix {
+  display: flex;
+  align-items: center;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background-color: white;
+  padding: 0 0.75rem; 
+}
+
+.input-with-prefix span {
+  font-size: 1rem;
+  color: #9ca3af;
+  padding-right: 0.5rem;
+}
+
+.input-with-prefix input { 
+  padding: 0.75rem 0.25rem;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  font-size: 1rem;
+  font-family: inherit;
+  width: 100%;
+}
+
+/* AddBudgetForm içindeki Custom Select Stilleri */
+.add-budget-form .custom-select-container { position: relative; }
+
+.add-budget-form .select-selected-value {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background-color: white;
+  font-size: 1rem;
+  font-family: inherit;
+  color: #334155;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: left;
+}
+
+.add-budget-form .select-arrow { transition: transform 0.2s ease-in-out; }
+.add-budget-form .select-arrow.open { transform: rotate(180deg); }
+
+.add-budget-form .select-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: white;
+  list-style: none;
+  padding: 0.5rem;
+  margin: 0.25rem 0 0 0;
+  z-index: 10;
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.add-budget-form .select-option {
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.add-budget-form .select-option:hover { background-color: #f1f5f9; }
+.add-budget-form .selected-label-text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.add-budget-form .theme-option-display { display: flex; align-items: center; gap: 0.75rem; }
+.add-budget-form .theme-color-swatch { width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0; }
+.add-budget-form .select-placeholder { color: #9ca3af; }
+
+/* ✅ Budgets: kartları eşit boya sabitle */
+.budget-cards-grid {
+  align-items: stretch; /* aynı satırdaki kartlar eşit yüksekliğe uzasın */
+}
+
+/* BudgetDetailCard'ın dış wrapper'ı genelde card/root gibi bir class olur.
+   Eğer sende farklıysa aşağıda nasıl bulacağını da yazdım. */
+.budget-card,
+.budget-detail-card,
+.budget-card-container {
+  height: 360px;          /* istediğin sabit yükseklik */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Latest Spending alanını sabitle + taşanı scroll yap */
+.budget-card .latest-spending,
+.budget-detail-card .latest-spending,
+.budget-card-container .latest-spending {
+  margin-top: auto;       /* alta iter */
+  max-height: 120px;      /* sabit alan */
+  overflow-y: auto;
+  padding-right: 6px;     /* scrollbar çakışmasın */
+}

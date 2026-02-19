@@ -1,0 +1,311 @@
+/* src/pages/pots/PotsPage.css */
+
+.page-container { 
+  padding: 2.5rem; 
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.page-title {
+  margin: 0;
+  font-size: 2.25rem;
+  font-weight: 700;
+}
+
+.btn-primary {
+  background-color: #1e293b;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+  background-color: #334155;
+}
+
+.pots-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+
+
+/* Modal içindeki formun stilleri */
+.add-pot-form h2 { margin-top: 0; }
+.add-pot-form p { color: #64748b; margin-bottom: 2rem; }
+.add-pot-form .form-group { display: flex; flex-direction: column; margin-bottom: 1.5rem; }
+.add-pot-form label { margin-bottom: 0.5rem; font-weight: 500; }
+.add-pot-form input { 
+  padding: 0.75rem; 
+  border: 1px solid #e2e8f0; 
+  border-radius: 8px; 
+  font-size: 1rem;
+  background-color: white;
+  font-family: inherit;
+}
+.add-pot-form .form-submit-btn { width: 100%; padding: 0.9rem; margin-top: 1rem; }
+
+
+/* --- Custom Select Stilleri --- */
+.custom-select-container {
+  position: relative;
+}
+
+.select-selected-value {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background-color: white;
+  font-size: 1rem;
+  font-family: inherit;
+  color: #334155;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: left;
+}
+
+.select-arrow {
+  transition: transform 0.2s ease-in-out;
+}
+.select-arrow.open {
+  transform: rotate(180deg);
+}
+
+.select-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: white;
+  list-style: none;
+  padding: 0.5rem;
+  margin: 0.25rem 0 0 0;
+  z-index: 10;
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.select-option {
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  
+}
+
+.select-option:hover {
+  background-color: #f1f5f9;
+}
+
+.selected-label-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.theme-option-display {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.theme-color-swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* --- YENİ EKLENEN PLACEHOLDER STİLLERİ --- */
+
+/* Dropdown kapalıyken görünen placeholder metni için stil */
+.select-placeholder {
+  color: #9ca3af; /* Soluk gri renk */
+}
+
+/* Açılır listedeki seçilemeyen placeholder seçeneği için özel stil */
+.select-option.disabled {
+  color: #9ca3af;
+  cursor: default;
+  font-style: italic;
+}
+
+/* Disabled seçeneğin üzerine gelince hover efekti olmasın */
+.select-option.disabled:hover {
+  background-color: transparent;
+}
+
+
+/* src/pages/pots/PotsPage.css dosyasının en altına ekle */
+
+/* --- AddMoneyForm Stilleri --- */
+.add-money-form h2 { margin-top: 0; }
+.add-money-form p { color: #64748b; margin-bottom: 1.5rem; }
+.add-money-form .form-group { margin-top: 1.5rem; margin-bottom: 1.5rem; } /* Preview sonrası boşluk */
+/* Diğer form stilleri (.form-group label, input vb.) zaten mevcut */
+
+/* Önizleme Bölümü Stilleri */
+.preview-section {
+  background-color: white;
+  border-radius: 8px;
+  padding: 1rem;
+  border: 1px solid #e2e8f0;
+}
+.preview-label { margin: 0 0 0.25rem 0; font-size: 0.85rem; color: #64748b; }
+.preview-amount { margin: 0 0 1rem 0; font-size: 1.75rem; font-weight: 600; }
+.preview-progress { margin-bottom: 0.5rem; height: 6px; } /* Progress barı biraz inceltelim */
+.preview-target { display: flex; justify-content: space-between; font-size: 0.8rem; color: #64748b; }
+
+/* Farklı temalar için progress bar dolgu rengi (PotCard.css'ten kopyalandı) */
+.preview-progress .theme-blue { background-color: #3b82f6; }
+.preview-progress .theme-cyan { background-color: #06b6d4; }
+.preview-progress .theme-green { background-color: #22c55e; }
+.preview-progress .theme-orange { background-color: #f97316; }
+.preview-progress .theme-indigo { background-color: #6366f1; }
+.preview-progress .theme-red { background-color: #ef4444; }
+.preview-progress .theme-purple { background-color: #8b5cf6; }
+
+/* Progress bar'ın kendisine ait stiller (PotCard.css'ten kopyalandı) */
+.progress-bar { width: 100%; height: 8px; background-color: #f1f5f9; border-radius: 4px; overflow: hidden; }
+.progress-bar-fill { height: 100%; border-radius: 4px; transition: width 0.3s ease-in-out; }
+
+
+.withdraw-money-form h2 { margin-top: 0; }
+.withdraw-money-form p { color: #64748b; margin-bottom: 1.5rem; }
+.withdraw-money-form .form-group { margin-top: 1.5rem; margin-bottom: 1.5rem; } /* Preview sonrası boşluk */
+/* Diğer form stilleri (.form-group label, input vb.) zaten mevcut */
+
+
+.withdraw-money-form .preview-section {
+  border-radius: 8px;
+  padding: 1rem;
+  border: 1px solid #e2e8f0;
+  background-color: white; /* Explicitly set to white */
+}
+
+.withdraw-money-form .preview-label { margin: 0 0 0.25rem 0; font-size: 0.85rem; color: #64748b; }
+
+
+.withdraw-money-form .preview-amount { margin: 0 0 1rem 0; font-size: 1.75rem; font-weight: 600; }
+
+.withdraw-money-form .preview-progress { margin-bottom: 0.5rem; height: 6px; }
+
+.withdraw-money-form .preview-target { display: flex; justify-content: space-between; font-size: 0.8rem; color: #64748b; }
+
+.withdraw-money-form .preview-progress .theme-blue { background-color: #3b82f6; }
+
+.withdraw-money-form .preview-progress .theme-cyan { background-color: #06b6d4; }
+.withdraw-money-form .preview-progress .theme-green { background-color: #22c55e; }
+.withdraw-money-form .preview-progress .theme-orange { background-color: #f97316; }
+.withdraw-money-form .preview-progress .theme-indigo { background-color: #6366f1; }
+.withdraw-money-form .preview-progress .theme-red { background-color: #ef4444; }
+.withdraw-money-form .preview-progress .theme-purple { background-color: #8b5cf6; }
+.withdraw-money-form .progress-bar { width: 100%; height: 8px; background-color: #f1f5f9; border-radius: 4px; overflow: hidden; }
+.withdraw-money-form .progress-bar-fill { height: 100%; border-radius: 4px; transition: width 0.3s ease-in-out; }
+
+
+/* src/pages/pots/PotsPage.css veya src/components/pots/PotCard.css */
+
+.pot-action-error {
+  color: #ef4444; /* Kırmızı renk */
+  font-size: 0.8rem;
+  text-align: right; /* Butonların altına hizalamak için */
+  margin-top: 0.5rem;
+  margin-bottom: 0; /* Ekstra boşluk olmasın */
+}
+
+
+/* src/pages/pots/PotsPage.css dosyasının en altına ekle */
+
+/* Hata mesajı stili */
+.form-error {
+  color: #ef4444; /* Kırmızı */
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+}
+
+/* Hata durumundaki input'un kenarlık rengi (isteğe bağlı) */
+.add-money-form .input-error,
+.withdraw-money-form .input-error {
+  border-color: #ef4444; 
+}
+
+/* Pasif buton stili */
+.add-money-form .form-submit-btn:disabled,
+.withdraw-money-form .form-submit-btn:disabled {
+  background-color: #9ca3af; /* Gri renk */
+  cursor: not-allowed; /* Tıklanamaz imleç */
+}
+.add-money-form .form-submit-btn:disabled:hover,
+.withdraw-money-form .form-submit-btn:disabled:hover {
+  background-color: #9ca3af; /* Hover efektini iptal et */
+}
+
+/* src/pages/pots/PotsPage.css dosyasının en altına ekle */
+
+/* --- Tarayıcı Otomatik Doldurma Stillerini Sıfırlama --- */
+
+/* Webkit tabanlı tarayıcılar (Chrome, Safari, Edge) için */
+.add-pot-form input:-webkit-autofill,
+.add-pot-form input:-webkit-autofill:hover, 
+.add-pot-form input:-webkit-autofill:focus, 
+.add-pot-form input:-webkit-autofill:active {
+    /* Yazı rengini normal input rengiyle aynı yap */
+    -webkit-text-fill-color: #334155; /* Veya input için kullandığın renk */
+    
+    /* Arka plan rengini kapatmak için 'box-shadow' hilesi */
+    box-shadow: 0 0 0 1000px white inset !important; 
+    
+    /* İsteğe bağlı: Geçiş efektini sıfırlama */
+    transition: background-color 5000s ease-in-out 0s; 
+}
+
+
+/* src/pages/pots/PotsPage.css veya Modal.css */
+
+.delete-confirmation h2 { margin-top: 0; }
+.delete-confirmation p { color: #64748b; margin-bottom: 1.5rem; }
+.confirmation-buttons { display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.5rem; }
+
+/* Genel Buton Stilleri (varsa üzerine yazabilir) */
+.confirmation-buttons button {
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+/* Tehlike Butonu (Kırmızı) */
+.btn-danger {
+  background-color: #ef4444;
+  color: white;
+  border: 1px solid #ef4444;
+}
+.btn-danger:hover { background-color: #dc2626; border-color: #dc2626;}
+
+/* İkincil Outline Butonu (İptal) */
+.btn-secondary-outline {
+  background-color: white;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+}
+.btn-secondary-outline:hover { background-color: #f8fafc; border-color: #cbd5e1;}
+
+

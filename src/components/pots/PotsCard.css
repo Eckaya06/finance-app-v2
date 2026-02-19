@@ -1,0 +1,108 @@
+/* src/components/pots/PotsCard.css */
+.card-container {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.card-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.see-details-link {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #3b82f6;
+  text-decoration: none;
+}
+
+.pots-content {
+  display: flex;
+  gap: 2rem;
+}
+
+.total-saved-section {
+  background-color: #f8fafc;
+  padding: 1.5rem;
+  border-radius: 10px;
+  text-align: center;
+  flex-shrink: 0; /* Küçülmesini engelle */
+}
+
+.total-saved-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #e0e7ff;
+  color: #4f46e5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem auto;
+}
+
+.total-saved-label {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #64748b;
+}
+
+.total-saved-amount {
+  margin: 0.25rem 0 0 0;
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+
+.pots-list {
+  flex-grow: 1;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Resimdeki gibi her zaman 2 sütun */
+  gap: 1.5rem; /* Sütunlar ve satırlar arası boşluk */
+}
+
+
+.pot-item {
+  display: flex; /* Çizgi ve yazıları yan yana getirmek için */
+  align-items: stretch; /* İçindeki elemanların yüksekliğini eşitle */
+  gap: 0.75rem; /* Çizgi ile yazı arasına boşluk */
+  /* Artık border-bottom'a ihtiyacımız yok, onu silebilirsin */
+}
+
+
+.pot-indicator {
+  width: 4px;
+  background-color: #10b981; /* Şimdilik hepsi için yeşil bir renk */
+  border-radius: 4px;
+  
+
+  
+}
+
+.pot-item p {
+  margin: 0;
+}
+
+.pot-name {
+  font-size: 0.9rem;
+  color: #475569;
+}
+
+.pot-amount {
+  font-weight: 600;
+  font-size: 1.1rem; 
+}
+.pot-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

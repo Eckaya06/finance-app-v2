@@ -1,0 +1,73 @@
+/* src/components/bills/RecurringBillsCard.css */
+
+/* .card-container, .card-header gibi ortak stiller diğer CSS dosyalarında tanımlı.
+   Ancak bu bileşeni bağımsız tutmak için burada tekrar ekleyebiliriz veya
+   ortak bir "Card.css" dosyası oluşturup oradan import edebiliriz.
+   Şimdilik basitlik için burada tekrar tanımlıyoruz. */
+
+/* RecurringBillsCard.css */
+
+.card-container {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+  font-family: sans-serif; /* Daha iyi bir görünüm için eklendi */
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.card-header h2 { margin: 0; font-size: 1.25rem; }
+.see-details-link { font-size: 0.9rem; font-weight: 500; color: #4b5563; text-decoration: none; }
+
+.bills-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* --- 👇 DEĞİŞİKLİKLER VE EKLEMELER BURADAN BAŞLIYOR --- */
+
+.bill-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fdfbf8; /* Resimdeki renge daha uygun bir arka plan */
+  padding: 1rem;
+  border-radius: 8px;
+  /* Renklendirilecek olan kalın sol kenarlığı ekliyoruz */
+  border-left: 5px solid; 
+}
+
+.bill-item p {
+  margin: 0;
+}
+
+.bill-name {
+  font-size: 0.9rem;
+  color: #334155;
+}
+
+.bill-amount {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+/* --- Renkler için Yeni Kurallar --- */
+.bill-item--paid {
+  border-left-color: #2dd4bf; /* Turkuaz rengi */
+}
+
+.bill-item--upcoming {
+  border-left-color: #f9b95d; /* Turuncu rengi */
+}
+
+.bill-item--due {
+  border-left-color: #60a5fa; /* Mavi rengi */
+}

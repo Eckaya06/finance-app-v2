@@ -1,0 +1,185 @@
+/* src/components/budgets/BudgetDetailCard.css */
+
+.budget-detail-card {
+  background-color: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.5rem;
+}
+
+.budget-detail-card .card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.budget-detail-card .pot-options-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #94a3b8;
+}
+
+.budget-detail-card h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.budget-limit-text {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #64748b;
+}
+
+.progress-bar-container {
+  width: 100%;
+  height: 20px;
+  background-color: #f1f5f9;
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 4px;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  border-radius: 6px;
+  transition: width 0.5s ease-in-out;
+}
+
+.budget-spend-summary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  border-bottom: 1px solid #f1f5f9;
+  padding-bottom: 1rem;
+}
+
+.summary-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.summary-label {
+  font-size: 0.8rem;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.summary-value {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.summary-value.negative {
+  color: #ef4444;
+}
+
+.latest-spending {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.latest-spending-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.latest-spending-header h4 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+.latest-spending-header .see-all-link {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #64748b;
+  text-decoration: none;
+}
+
+.latest-spending-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.mini-transaction-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.9rem;
+}
+
+.mini-transaction-item img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.mini-tx-details {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.mini-tx-name {
+  font-weight: 600;
+  color: #334155;
+}
+.mini-tx-date {
+  font-size: 0.8rem;
+  color: #9ca3af;
+}
+
+.mini-tx-amount {
+  font-weight: 600;
+}
+
+.latest-empty{
+  color: rgba(0,0,0,0.45);
+  font-size: 0.95rem;
+  padding: 10px 0;
+}
+
+.latest-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.latest-row:last-child {
+  border-bottom: none;
+}
+
+.latest-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.latest-name {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.latest-date {
+  font-size: 0.8rem;
+  color: #9ca3af;
+}
+
+.latest-amount {
+  font-weight: 600;
+  color: #ef4444;
+}
