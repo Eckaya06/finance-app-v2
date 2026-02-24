@@ -246,32 +246,53 @@
 
 .delete-actions {
   display: flex;
-  justify-content: flex-end;
-  gap: 1rem;
+  gap: 16px;
+  margin-top: 24px;
+  width: 100%;
 }
 
-.btn-delete-confirm {
-  background-color: #ef4444;
-  color: white;
-  border: none;
-  padding: 0.8rem 1.5rem;
-  border-radius: 8px;
+.btn-delete-confirm, 
+.btn-delete-cancel {
+  flex: 1;
+  padding: 12px 20px;
+  border-radius: 10px;
   font-weight: 600;
+  font-size: 14px;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: all 0.2s ease-in-out;
+  border: none;
+  white-space: nowrap;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.btn-delete-confirm:hover { background-color: #dc2626; }
+
+/* ONAY BUTONU (Kırmızı) */
+.btn-delete-confirm {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.btn-delete-confirm:hover {
+  background-color: #c0392b;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(231, 76, 60, 0.2);
+}
+
 
 .btn-delete-cancel {
-  background-color: transparent;
-  color: #64748b;
-  border: none;
-  padding: 0.8rem 1.5rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: color 0.2s;
+  background-color: #ffffff !important; /* ✅ Arka planı beyaz yaptık */
+  color: #4b5563 !important;           /* Yazı rengi koyu gri */
+  border: 1px solid #9ca3af !important; /* ✅ Belirgin, orta tonlu gri kenarlık */
 }
-.btn-delete-cancel:hover { color: #1e293b; }
+
+/* Hover (Üzerine gelince) */
+.btn-delete-cancel:hover {
+  background-color: #f3f4f6 !important; /* Üzerine gelince çok hafif bir gri tonuna döner */
+  color: #111827 !important;           /* Yazı rengi daha da koyulaşır */
+  border-color: #6b7280 !important;    /* Kenarlık da biraz daha belirginleşir */
+  transform: translateY(-1px);         /* Hafif bir kalkma efekti */
+}
 
 /* --- Ortak Resim İkon Stili --- */
 .category-img-icon {

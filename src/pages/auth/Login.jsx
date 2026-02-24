@@ -1,119 +1,98 @@
 import { useState } from 'react';
-import { login} from '../../utils/auth';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 
-
-
-
-const Login = () =>{
-
-
-
-
-
-  const [email,setEmail] = useState('')
-  const [password,setPassword]=useState('')
+const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState(''); 
+  const [loading, setLoading] = useState(false); 
 
   const navigate = useNavigate();
+  const { login } = useAuth(); 
 
-  const handleSubmit = (event) =>{
-
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    setError(''); 
 
-    if(!email || !password){
-
-      alert(" Please fill in the blanks ")
+    if (!email || !password) {
+      setError("Please fill in the blanks");
       return;
     }
 
-    const isSuccess = login(email, password);
-
-    if(isSuccess){
-
-      alert('Giriş başarılı! Ana sayfaya yönlendiriliyorsunuz...');
-      navigate('/home');
-
-    }else {
-
-      alert('Email veya şifre hatalı. Lütfen tekrar deneyin.');
-
-
+    try {
+      setLoading(true);
+      await login(email, password);
+      navigate('/home'); 
+    } catch (error) {
+      console.error("Login error:", error);
+      if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
+        setError('Invalid email or password. Please try again.');
+      } else {
+        setError('Failed to log in. Please check your connection.');
+      }
+    } finally {
+      setLoading(false);
     }
-}
-  
+  }
 
-
-  
-
-
-
-
-
-
-  return(
+  return (
     <div className="container">
       <div className="auth-page">
         <div className="auth-hero">
-
           <img src="/src/assets/logo.png" alt="logo resmi" />
-
-          <div className='background-hero'>
-
-            
-
-
-          </div>
-
-          
-
+          <div className='background-hero'></div>
           <div className='text-content'>
-            <h1>  <span>Keep track of your money</span>
-                  <span>and save for your future</span>
+            <h1>
+              <span>Keep track of your money</span>
+              <span>and save for your future</span>
             </h1>
             <p>
-            Personal finance app that helps you track transactions, set budgets,
-            and grow your savings.
+              Personal finance app that helps you track transactions, set budgets,
+              and grow your savings.
             </p>
-            
-            
           </div>
         </div>
       
-        <form onSubmit={handleSubmit} className= "auth-card" >
+        <form onSubmit={handleSubmit} className="auth-card">
           <h2>Login</h2>
+
+          {error && <div style={{ color: '#e74c3c', marginBottom: '15px', fontSize: '14px', textAlign: 'center' }}>{error}</div>}
 
           <div className="form-group">
             <label htmlFor="email">Email</label>
             <input 
               type="email"
-              id ="email"
-              value= {email}
+              id="email"
+              value={email}
               onChange={(e) => setEmail(e.target.value)}
+              disabled={loading}
+              autoComplete="email" // ✅ EKLENDİ
             />
           </div>
 
-          <div className="form-group" >
-              
+          <div className="form-group">
             <label htmlFor="password">Password</label>
             <input 
-            type="password"
-            id = "password" 
-            value = {password}
-            onChange={(e)=>setPassword(e.target.value)}
+              type="password"
+              id="password" 
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              disabled={loading}
+              autoComplete="current-password" // ✅ EKLENDİ
             />
           </div>
-          <button type="submit" className="primary">Login</button>
-          <p className="small">Don't you have a account? <Link to="/signup">Sign up</Link></p>
+
+          <button type="submit" className="primary" disabled={loading}>
+            {loading ? "Logging in..." : "Login"}
+          </button>
+          
+          <p className="small">Don't you have an account? <Link to="/signup">Sign up</Link></p>
         </form>
-
-
-
-
-
       </div>
     </div>
-    );
-  };
+  );
+};
 
 export default Login;
 

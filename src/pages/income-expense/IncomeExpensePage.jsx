@@ -1,4 +1,3 @@
-// src/pages/income-expense/IncomeExpensePage.jsx
 import { useState } from 'react';
 import './IncomeExpensePage.css';
 import Modal from '../../components/modal/Modal.jsx';
@@ -21,9 +20,10 @@ const IncomeExpensePage = () => {
     setIsDeleteModalOpen(true); 
   };
 
-  const confirmDelete = () => {
+  const confirmDelete = async () => {
     if (transactionToDelete) {
-      deleteTransaction(transactionToDelete); 
+      await deleteTransaction(transactionToDelete); 
+      // ✅ Önce modalı kapatıp sonra ID'yi temizliyoruz
       setIsDeleteModalOpen(false); 
       setTransactionToDelete(null); 
     }
@@ -34,29 +34,22 @@ const IncomeExpensePage = () => {
     setIsModalOpen(false);
   };
 
-  // --- TARİH DÜZELTMESİ YAPILDI ---
-  // Eski kod (UTC): const today = new Date().toISOString().split('T')[0];
-  
-  // Yeni kod (Yerel Saat):
-  const getLocalTodayDate = () => {
-    const now = new Date();
-    const year = now.getFullYear();
-    // getMonth() 0-11 arası döner, o yüzden +1 ekliyoruz.
-    const month = String(now.getMonth() + 1).padStart(2, '0'); 
-    const day = String(now.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
-  };
-
-  const today = getLocalTodayDate();
-  // -------------------------------
+  const today = new Date().toLocaleDateString('tr-TR', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric'
+  });
 
   const dailyIncome = transactions
     .filter(t => t.type === 'income' && t.date === today)
-    .reduce((acc, curr) => acc + parseFloat(curr.amount), 0);
+    .reduce((acc, curr) => acc + parseFloat(curr.amount || 0), 0);
 
   const dailyExpense = transactions
     .filter(t => t.type === 'expense' && t.date === today)
-    .reduce((acc, curr) => acc + parseFloat(curr.amount), 0);
+    .reduce((acc, curr) => acc + parseFloat(curr.amount || 0), 0);
+
+  // Silinmek üzere olan objeyi güvenli bir şekilde bulalım
+  const itemToBeDeleted = transactions.find(t => t.id === transactionToDelete);
 
   return (
     <div className="page-container">
@@ -83,14 +76,14 @@ const IncomeExpensePage = () => {
               <div className="ie-card-icon"><FiArrowDownLeft /></div>
               <div className="ie-card-info">
                 <span>Daily Income</span>
-                <h3>${dailyIncome.toFixed(2)}</h3>
+                <h3>{dailyIncome.toLocaleString('tr-TR', { minimumFractionDigits: 2 })} TL</h3>
               </div>
             </div>
             <div className="ie-summary-card expense">
               <div className="ie-card-icon"><FiArrowUpRight /></div>
               <div className="ie-card-info">
                 <span>Daily Expense</span>
-                <h3>${dailyExpense.toFixed(2)}</h3>
+                <h3>{dailyExpense.toLocaleString('tr-TR', { minimumFractionDigits: 2 })} TL</h3>
               </div>
             </div>
           </div>
@@ -125,7 +118,7 @@ const IncomeExpensePage = () => {
                     
                     <div className="ie-item-right">
                       <div className={`ie-item-amount ${item.type}`}>
-                        {item.type === 'income' ? '+' : '-'}${parseFloat(item.amount).toFixed(2)}
+                        {item.type === 'income' ? '+' : '-'}{parseFloat(item.amount).toLocaleString('tr-TR', { minimumFractionDigits: 2 })} TL
                       </div>
                       
                       <button 
@@ -154,7 +147,8 @@ const IncomeExpensePage = () => {
       <Modal isOpen={isDeleteModalOpen} onClose={() => setIsDeleteModalOpen(false)}>
         <div className="delete-modal-content">
           <div className="delete-header">
-            <h2>Delete '{transactions.find(t => t.id === transactionToDelete)?.name}'?</h2>
+            {/* ✅ Optional chaining (?) ile crash olmasını önledik */}
+            <h2>Delete '{itemToBeDeleted?.name}'?</h2>
           </div>
           <p className="delete-message">
             Are you sure you want to delete this transaction? This action cannot be reversed.

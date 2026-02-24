@@ -1,93 +1,96 @@
 import { useState } from 'react';
-import { register } from '../../utils/auth';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext'; 
 
+const Signup = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState(''); 
+  const [loading, setLoading] = useState(false); 
+  
+  const navigate = useNavigate();
+  const { signup } = useAuth(); 
 
-
-const Signup =() =>{
-
-  const[email,setEmail] = useState('');
-  const[password,setPassword] = useState('');
-
-
-
-  const handleSubmit = (event) =>{
-
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    setError(''); 
 
-    if(!email || !password){
-
-      alert(" Please fill in the blanks ")
+    if (!email || !password) {
+      setError("Please fill in the blanks");
       return;
     }
 
-    try{
-
-      register(email,password);
-      alert('Registration completed successfully! You can now log in from the Login page.');
-
-      setEmail('');
-      setPassword('');
-
+    try {
+      setLoading(true);
+      await signup(email, password);
+      navigate('/home'); 
     } catch (error) {
-      alert('An error occurred during registration.');
       console.error("Signup error:", error);
+      if (error.code === 'auth/email-already-in-use') {
+        setError('This email address is already in use.');
+      } else if (error.code === 'auth/weak-password') {
+        setError('Password should be at least 6 characters.');
+      } else {
+        setError('An error occurred during registration.');
+      }
+    } finally {
+      setLoading(false); 
     }
-
   }
 
-
-
   return (
-  <div className="container">
-    <div className="auth-page">
-      <div className="auth-hero">
-
-        <img src="/src/assets/logo.png" className='auth-hero-logo' alt="logo resmi" />
-        <div className='background-hero'>
-
-
+    <div className="container">
+      <div className="auth-page">
+        <div className="auth-hero">
+          <img src="/src/assets/logo.png" className='auth-hero-logo' alt="logo resmi" />
+          <div className='background-hero'></div>
+          <div className='text-content'>
+            <h1>Manage your money smarter</h1>
+            <p>Create an account to start tracking income, expenses and budgets.</p>
+          </div>
         </div>
-        <div className='text-content'>
-          <h1>Manage your money smarter</h1>
-          <p>Create an account to start tracking income, expenses and budgets.</p>
-        </div>
-      </div>
-      <form onSubmit={handleSubmit} className="auth-card" >
-        <h2>Sign up</h2>
-        <div className="form-group" >
-          <label htmlFor="email">Email</label>
-          <input 
-            type="email"
-            id ="email"
-            value= {email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-
-        <div className="form-group" >
+        
+        <form onSubmit={handleSubmit} className="auth-card">
+          <h2>Sign up</h2>
           
-          <label htmlFor="password" >Password</label>
-          <input 
-          type="password"
-          id = "password" 
-          value = {password}
-          onChange={(e)=>setPassword(e.target.value)}
-          />
-        </div>
+          {error && <div style={{ color: '#e74c3c', marginBottom: '15px', fontSize: '14px', textAlign: 'center' }}>{error}</div>}
 
-        <button type="submit" className="primary" >Sign up</button>
-        <p className="small"> Do you already have an account? <Link to="/login">Sign in</Link></p>
-      </form>
+          <div className="form-group">
+            <label htmlFor="email">Email</label>
+            <input 
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              disabled={loading} 
+              autoComplete="email" // ✅ EKLENDİ
+            />
+          </div>
 
+          <div className="form-group">
+            <label htmlFor="password">Password</label>
+            <input 
+              type="password"
+              id="password" 
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              disabled={loading}
+              autoComplete="new-password" // ✅ EKLENDİ
+            />
+          </div>
 
+          <button type="submit" className="primary" disabled={loading}>
+            {loading ? "Creating account..." : "Sign up"}
+          </button>
+          
+          <p className="small">Do you already have an account? <Link to="/login">Sign in</Link></p>
+        </form>
+      </div>
     </div>
-  </div>
   );
 }
 
 export default Signup;
-
 
 
 
