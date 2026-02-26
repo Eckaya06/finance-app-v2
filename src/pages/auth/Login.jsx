@@ -41,7 +41,7 @@ const Login = () => {
     <div className="container">
       <div className="auth-page">
         <div className="auth-hero">
-          <img src={logoImg} alt="logo resmi" loading="lazy" />
+          <img src={logoImg} alt="logo resmi" />
           <div className='background-hero'></div>
           <div className='text-content'>
             <h1>
