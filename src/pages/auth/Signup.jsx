@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext'; 
+import logoImg from '../../assets/Logo.png';
 
 const Signup = () => {
   const [email, setEmail] = useState('');
@@ -42,7 +43,7 @@ const Signup = () => {
     <div className="container">
       <div className="auth-page">
         <div className="auth-hero">
-          <img src="/src/assets/logo.png" className='auth-hero-logo' alt="logo resmi" />
+          <img src={logoImg} className="auth-hero-logo" alt="logo resmi" />
           <div className='background-hero'></div>
           <div className='text-content'>
             <h1>Manage your money smarter</h1>
