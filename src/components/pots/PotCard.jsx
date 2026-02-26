@@ -2,45 +2,43 @@
 import './PotCard.css';
 import { FiMoreHorizontal } from 'react-icons/fi';
 
-// 1. Yeni propları ekle: onOptionsToggle, isOptionsMenuOpen
-const PotCard = ({ pot, onAddMoneyClick, onWithdrawClick, potActionError, onOptionsToggle, isOptionsMenuOpen, onDeleteClick }) => {
+// ✅ YENİ: onEditClick prop'u eklendi
+const PotCard = ({ pot, onAddMoneyClick, onWithdrawClick, potActionError, onOptionsToggle, isOptionsMenuOpen, onDeleteClick, onEditClick }) => {
   
   if (!pot) { return null; } // Koruma
 
   const progressPercentage = pot.target > 0 ? (pot.saved / pot.target) * 100 : 0;
 
-  // 2. Edit ve Delete için geçici fonksiyonlar
+  // ✅ YENİ: Sadece konsola yazdırmak yerine ana sayfadaki Edit fonksiyonunu çağırıyoruz
   const handleEdit = () => {
-    console.log("Edit clicked for pot:", pot.id);
-    onOptionsToggle(null); // Menüyü kapat
-    // TODO: Edit modalını aç
+    onEditClick(pot.id); 
   };
-
 
   const showError = potActionError && potActionError.potId === pot.id;
 
   return (
     <div className={`pot-card theme-${pot.theme}`} data-pot-id={pot.id}>
-      <div className="pot-card-header"> {/* Bu div relative olmalı (CSS'te var) */}
+      <div className="pot-card-header">
         <div className="pot-icon"></div>
         <h3>{pot.name}</h3>
-        {/* 3. Üç nokta butonuna onClick ekle */}
+        
         <button 
           className="pot-options-btn" 
           onClick={(e) => {
-            e.stopPropagation(); // Olayın dışarıya yayılmasını engelle (önemli!)
+            e.stopPropagation(); 
             onOptionsToggle(pot.id); 
           }}
         >
           <FiMoreHorizontal />
         </button>
         
-        {/* 4. AÇILIR MENÜYÜ EKLE */}
+        {/* AÇILIR MENÜ */}
         {isOptionsMenuOpen && (
-          <div className="pot-options-menu" onClick={(e) => e.stopPropagation()}> {/* Menü içindeki tıklamaların menüyü kapatmasını engelle */}
+          <div className="pot-options-menu" onClick={(e) => e.stopPropagation()}>
+            {/* ✅ Tıklandığında handleEdit çalışıp Modal'ı açacak */}
             <button onClick={handleEdit}>Edit Pot</button>
             <button 
-              onClick={() => onDeleteClick(pot.id)} // <-- Tıklandığında ana sayfadaki fonksiyonu çağır
+              onClick={() => onDeleteClick(pot.id)} 
               className="delete"
             >
               Delete Pot
@@ -81,4 +79,5 @@ const PotCard = ({ pot, onAddMoneyClick, onWithdrawClick, potActionError, onOpti
     </div>
   );
 };
+
 export default PotCard;

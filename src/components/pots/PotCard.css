@@ -60,7 +60,7 @@
   bottom: -10px; /* Dikey konumu koruyalım (veya tekrar ayarla) */
   
   /* DEĞİŞİKLİK: Menüyü hafifçe sağa itmek için küçük bir negatif değer dene */
-  right: -40px; /* Bu değeri -4px, -12px gibi değiştirerek en iyi hizayı bulabilirsin */
+  right: -24px; /* Bu değeri -4px, -12px gibi değiştirerek en iyi hizayı bulabilirsin */
   
   background-color: white;
   border-radius: 8px;

@@ -25,6 +25,8 @@ const TransactionsPage = () => {
   const { transactions, budgets } = useTransactions(); 
   const [searchParams] = useSearchParams(); 
   const urlCategory = searchParams.get('category');
+  // ✅ URL'den 'since' (şu tarihten itibaren) parametresini de yakalıyoruz
+  const urlSince = searchParams.get('since'); 
 
   const [sortType, setSortType] = useState('latest');
   const [filterCategory, setFilterCategory] = useState(urlCategory || 'All');
@@ -51,11 +53,25 @@ const TransactionsPage = () => {
     }
     
     if (filterCategory !== 'All') {
-      const activeBudget = budgets.find(b => b.category === filterCategory);
+      // ✅ KRİTİK DÜZELTME: Firebase ID'si metin olduğu için Number(tx.id) kullanılamaz.
+      // Onun yerine harcamanın 'createdAt' zamanını kullanıyoruz.
       result = result.filter(tx => {
         const isCategoryMatch = tx.category === filterCategory;
-        // Bütçe varsa bütçe tarihinden sonrasını göster
-        const isAfterBudgetCreation = activeBudget ? Number(tx.id) > activeBudget.createdAt : true;
+        
+        let isAfterBudgetCreation = true;
+
+        // 1. Durum: Linkten 'since' parametresi geldiyse (See All tıklandıysa)
+        if (urlSince) {
+          isAfterBudgetCreation = (tx.createdAt || 0) >= Number(urlSince);
+        } 
+        // 2. Durum: Sayfada normal filtreleme yapılıyorsa ve bütçe varsa
+        else {
+          const activeBudget = budgets.find(b => b.category === filterCategory);
+          if (activeBudget) {
+             isAfterBudgetCreation = (tx.createdAt || 0) >= (activeBudget.createdAt || 0);
+          }
+        }
+        
         return isCategoryMatch && isAfterBudgetCreation;
       });
     }
@@ -82,7 +98,7 @@ const TransactionsPage = () => {
       default: break;
     }
     return result;
-  }, [transactions, budgets, sortType, filterCategory, searchTerm]);
+  }, [transactions, budgets, sortType, filterCategory, searchTerm, urlSince]);
   
   useEffect(() => {
     setCurrentPage(1);

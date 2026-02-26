@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTransactions } from '../../context/TransactionContext.jsx';
 import Modal from '../../components/modal/Modal.jsx';
 import AddBudgetForm from '../../components/budgets/AddBudgetForm.jsx';
+import EditBudgetForm from '../../components/budgets/EditBudgetForm.jsx'; 
 import EmptyState from '../../components/emptystate/EmptyState.jsx';
 import { FiPieChart } from 'react-icons/fi';
 import './BudgetsPage.css';
@@ -10,28 +11,80 @@ import DeleteBudgetModal from '../../components/budgets/DeleteBudgetModal.jsx';
 import emptyBudgetImg from '../../assets/empty-budget.png';
 
 const BudgetsPage = () => {
-  const { budgets, setBudgets } = useTransactions(); 
+  const { budgets, addBudget, deleteBudget, updateBudget } = useTransactions(); 
   
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [openOptionsMenuId, setOpenOptionsMenuId] = useState(null);
+  
   const [budgetToDelete, setBudgetToDelete] = useState(null);
+  
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [budgetToEdit, setBudgetToEdit] = useState(null);
 
-  const handleCreateBudget = (newBudgetData) => {
-    const now = Date.now(); // Şimdiki zamanı milisaniye olarak al
+  // ✅ GÜNCELLENDİ: Yeni bütçe oluştururken "Kategori Zaten Var Mı?" kontrolü
+  const handleCreateBudget = async (newBudgetData) => {
+    // budgets dizisinde bu kategoriden var mı diye bakıyoruz
+    const categoryExists = budgets.some(
+      (b) => b.category.toLowerCase() === newBudgetData.category.toLowerCase()
+    );
+
+    if (categoryExists) {
+      alert(`You already have a budget for ${newBudgetData.category}. Please choose a different category or edit the existing one.`);
+      return; // Varsa işlemi burada durdur, Firebase'e kaydetme!
+    }
+
+    const now = Date.now(); 
     const newBudget = {
-      id: now,
       ...newBudgetData,
-      createdAt: now, // ✅ ZAMAN KİLİDİ: Oluşturulma tarihini buraya mühürledik
+      createdAt: now, 
       spent: 0,
     };
-    setBudgets((prev) => [newBudget, ...prev]);
+    await addBudget(newBudget); 
     setIsAddModalOpen(false);
   };
 
-  const handleDeleteConfirm = () => {
+  const handleDeleteConfirm = async () => {
     if (!budgetToDelete) return;
-    setBudgets((prev) => prev.filter((b) => b.id !== budgetToDelete.id));
+    await deleteBudget(budgetToDelete.id); 
     setBudgetToDelete(null);
   };
+
+  // ✅ GÜNCELLENDİ: Bütçe düzenlerken "Kategori Zaten Var Mı?" kontrolü
+  const handleUpdateBudget = async (budgetId, updatedData) => {
+    // Seçilen kategori başka bir bütçede kullanılıyor mu? (Kendi ID'si hariç)
+    const categoryExists = budgets.some(
+      (b) => b.category.toLowerCase() === updatedData.category.toLowerCase() && b.id !== budgetId
+    );
+
+    if (categoryExists) {
+      alert(`You already have a budget for ${updatedData.category}. Please choose a different category.`);
+      return; // Varsa işlemi burada durdur!
+    }
+
+    await updateBudget(budgetId, updatedData);
+    setIsEditModalOpen(false);
+    setBudgetToEdit(null);
+  };
+
+  const handleOptionsToggle = (budgetId) => {
+    setOpenOptionsMenuId(prevId => (prevId === budgetId ? null : budgetId));
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (openOptionsMenuId !== null && 
+          !event.target.closest('.pot-options-btn') && 
+          !event.target.closest('.budget-options-menu')) 
+      {
+        setOpenOptionsMenuId(null);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [openOptionsMenuId]);
+
 
   return (
     <div className="page-container">
@@ -56,17 +109,26 @@ const BudgetsPage = () => {
           {budgets.map((budget, index) => (
             <BudgetDetailCard
               key={budget.id || `fallback-key-${index}`} 
-              budget={{
-                ...budget,
-                latestSpending: Array.isArray(budget.latestSpending) ? budget.latestSpending : [],
+              budget={budget} 
+              isMenuOpen={openOptionsMenuId === budget.id}
+              onOptionsToggle={() => handleOptionsToggle(budget.id)}
+              
+              onDeleteRequest={() => {
+                setBudgetToDelete(budget);
+                setOpenOptionsMenuId(null); 
               }}
-              onDeleteRequest={() => setBudgetToDelete(budget)}
-              onEditRequest={() => alert(`Editing ${budget.category}`)}
+              
+              onEditRequest={() => {
+                setBudgetToEdit(budget); 
+                setIsEditModalOpen(true); 
+                setOpenOptionsMenuId(null); 
+              }}
             />
           ))}
         </div>
       )}
 
+      {/* ADD MODAL */}
       <Modal isOpen={isAddModalOpen} onClose={() => setIsAddModalOpen(false)}>
         <AddBudgetForm
           onAddBudget={handleCreateBudget}
@@ -74,6 +136,24 @@ const BudgetsPage = () => {
         />
       </Modal>
 
+      {/* EDIT MODAL */}
+      {budgetToEdit && isEditModalOpen && (
+        <Modal isOpen={isEditModalOpen} onClose={() => {
+          setIsEditModalOpen(false);
+          setBudgetToEdit(null);
+        }}>
+          <EditBudgetForm
+            budget={budgetToEdit}
+            onUpdateBudget={handleUpdateBudget}
+            onClose={() => {
+              setIsEditModalOpen(false);
+              setBudgetToEdit(null);
+            }}
+          />
+        </Modal>
+      )}
+
+      {/* DELETE MODAL */}
       <Modal isOpen={!!budgetToDelete} onClose={() => setBudgetToDelete(null)}>
         <DeleteBudgetModal
           budget={budgetToDelete}

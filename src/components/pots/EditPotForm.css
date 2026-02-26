@@ -1,0 +1,68 @@
+/* src/components/pots/EditPotForm.css */
+
+.edit-pot-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  font-family: inherit;
+}
+
+.edit-pot-form h2 {
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #201F24;
+}
+
+.edit-pot-form p {
+  margin: 0;
+  color: #696868;
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 0.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-size: 14px;
+  font-weight: 700;
+  color: #696868;
+}
+
+.form-input {
+  padding: 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #201F24;
+  outline: none;
+  font-family: inherit;
+  transition: border-color 0.2s;
+}
+
+.form-input:focus {
+  border-color: #201F24;
+}
+
+.form-submit-btn {
+  width: 100%;
+  padding: 16px;
+  margin-top: 1rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #201F24;
+  color: white;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.form-submit-btn:hover {
+  background-color: #383838;
+}
