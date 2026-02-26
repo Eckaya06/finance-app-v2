@@ -7,7 +7,7 @@ import EditPotForm from '../../components/pots/EditPotForm.jsx';
 import AddMoneyForm from '../../components/pots/AddMoneyForm.jsx';
 import WithdrawMoneyForm from '../../components/pots/WithdrawMoneyForm.jsx';
 import EmptyState from '../../components/emptystate/EmptyState.jsx';
-import emptyPotsImage from '../../assets/empty-pots.png';
+import emptyPotsImage from '../../assets/empty-pots.webp';
 import DeleteConfirmationModal from '../../components/modal/DeleteConfirmationModal.jsx'
 import { useTransactions } from '../../context/TransactionContext.jsx'; 
 

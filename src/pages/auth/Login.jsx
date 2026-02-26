@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import logoImg from '../../assets/Logo.png';
+import logoImg from '../../assets/Logo.webp';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -41,7 +41,7 @@ const Login = () => {
     <div className="container">
       <div className="auth-page">
         <div className="auth-hero">
-          <img src={logoImg} alt="logo resmi" />
+          <img src={logoImg} alt="logo resmi" loading="lazy" />
           <div className='background-hero'></div>
           <div className='text-content'>
             <h1>

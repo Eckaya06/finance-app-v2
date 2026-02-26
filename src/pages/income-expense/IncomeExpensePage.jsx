@@ -4,7 +4,7 @@ import Modal from '../../components/modal/Modal.jsx';
 import AddTransactionForm from '../../components/income-expense/AddTransactionForm.jsx';
 import EmptyState from '../../components/emptystate/EmptyState.jsx';
 import { FiPlus, FiArrowUpRight, FiArrowDownLeft, FiActivity, FiTrash2 } from 'react-icons/fi';
-import emptyTransactionsImage from '../../assets/empty-transactions.png'; 
+import emptyTransactionsImage from '../../assets/empty-transactions.webp'; 
 import { useTransactions } from '../../context/TransactionContext.jsx';
 import { getCategoryTheme } from '../../utils/categoryIcons.jsx';
 

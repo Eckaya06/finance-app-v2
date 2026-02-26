@@ -8,7 +8,7 @@ import { FiPieChart } from 'react-icons/fi';
 import './BudgetsPage.css';
 import BudgetDetailCard from '../../components/budgets/BudgetDetailCard.jsx';
 import DeleteBudgetModal from '../../components/budgets/DeleteBudgetModal.jsx';
-import emptyBudgetImg from '../../assets/empty-budget.png';
+import emptyBudgetImg from '../../assets/empty-budget.webp';
 
 const BudgetsPage = () => {
   const { budgets, addBudget, deleteBudget, updateBudget } = useTransactions(); 
